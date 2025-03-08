@@ -6,11 +6,11 @@ class Item {
   final String? cest;
   final String? cstIcms;
   final double? aliquotaIcms;
-  final double? cstIpi;
+  final String? cstIpi;
   final double? aliquotaIpi;
   final String? cstPis;
   final double? aliquotaPis;
-  final double? cstCofins;
+  final String? cstCofins;
   final double? aliquotaCofins;
 
   Item({
