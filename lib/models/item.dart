@@ -2,6 +2,7 @@ class Item {
   final String id;
   final String name;
   final String ncm;
+  final String imageUrl;
   final String? codigoBarras;
   final String? cest;
   final String? cstIcms;
@@ -17,6 +18,7 @@ class Item {
     required this.id,
     required this.name,
     required this.ncm,
+    required this.imageUrl,
     this.codigoBarras,
     this.cest,
     this.cstIcms,
