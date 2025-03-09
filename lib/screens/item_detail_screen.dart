@@ -12,29 +12,88 @@ class ItemDetailScreen extends StatelessWidget {
       appBar: AppBar(title: Text(item.name)),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Imagem do produto
             Container(
               width: double.infinity,
-              height: 300,
-              child: Image.network(item.imageUrl, fit: BoxFit.cover),
+              height: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+                boxShadow: [BoxShadow(blurRadius: 5, color: Colors.black26)],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+                child: Image.network(
+                  item.imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Icon(Icons.image_not_supported, size: 100, color: Colors.grey),
+                ),
+              ),
             ),
-            SizedBox(height: 10),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              width: double.infinity,
+
+            SizedBox(height: 16),
+
+            // Informações principais
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(item.name, style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold
-                  ),),
-                  Text('NCM: ${item.ncm}'),
-                  Text('CEST: ${item.cest}'),
+                  Text(
+                    item.name,
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  _buildInfoRow("NCM", item.ncm),
+                  _buildInfoRow("Código de Barras", item.codigoBarras),
+                  _buildInfoRow("CEST", item.cest),
                 ],
+              ),
+            ),
+
+            SizedBox(height: 16),
+
+            // Informações fiscais
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Card(
+                elevation: 3,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    children: [
+                      Text('Informações Fiscais', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                      _buildInfoRow("CST ICMS", item.cstIcms),
+                      _buildInfoRow("Alíquota ICMS", item.aliquotaIcms?.toString(), suffix: "%"),
+                      _buildInfoRow("CST IPI", item.cstIpi),
+                      _buildInfoRow("Alíquota IPI", item.aliquotaIpi?.toString(), suffix: "%"),
+                      _buildInfoRow("CST PIS", item.cstPis),
+                      _buildInfoRow("Alíquota PIS", item.aliquotaPis?.toString(), suffix: "%"),
+                      _buildInfoRow("CST COFINS", item.cstCofins),
+                      _buildInfoRow("Alíquota COFINS", item.aliquotaCofins?.toString(), suffix: "%"),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  // Método auxiliar para exibir informações fiscais (se vazias, ficam com espaço reservado)
+  Widget _buildInfoRow(String label, String? value, {String suffix = ""}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          Text('$value $suffix', style: TextStyle(fontSize: 16)), // Exibe string vazia se não houver valor
+        ],
       ),
     );
   }
