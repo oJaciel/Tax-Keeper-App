@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tax_keeper/models/item.dart';
+import 'package:tax_keeper/utils/app_routes.dart';
 
 class ItemGridComponent extends StatelessWidget {
   final Item item;
@@ -9,12 +10,12 @@ class ItemGridComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      child: GridTile(
-        footer: GridTileBar(
-          title: Text(item.name),
-          backgroundColor: Colors.black87,
-        ),
-        child: GestureDetector(
+      child: GestureDetector(
+        child: GridTile(
+          footer: GridTileBar(
+            title: Text(item.name),
+            backgroundColor: Colors.black87,
+          ),
           child: Image.network(
             item.imageUrl,
             fit: BoxFit.cover,
@@ -30,6 +31,9 @@ class ItemGridComponent extends StatelessWidget {
             },
           ),
         ),
+        onTap: () {
+          Navigator.pushNamed(context, AppRoutes.ITEM_DETAIL, arguments: item);
+        },
       ),
     );
   }

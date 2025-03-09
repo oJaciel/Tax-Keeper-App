@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tax_keeper/providers/items_provider.dart';
+import 'package:tax_keeper/screens/item_detail_screen.dart';
 import 'package:tax_keeper/screens/items_overview_screen.dart';
+import 'package:tax_keeper/utils/app_routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +21,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Tax Keeper',
-        home: const ItemsOverviewScreen(),
+        routes: {
+          AppRoutes.HOME: (ctx) => ItemsOverviewScreen(),
+          AppRoutes.ITEM_DETAIL: (ctx) => ItemDetailScreen(),
+        }
+
+        ,
       ),
     );
   }
