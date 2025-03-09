@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tax_keeper/providers/items_provider.dart';
 import 'package:tax_keeper/screens/item_detail_screen.dart';
 import 'package:tax_keeper/screens/items_overview_screen.dart';
+import 'package:tax_keeper/screens/items_screen.dart';
 import 'package:tax_keeper/utils/app_routes.dart';
 
 void main() {
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         routes: {
           AppRoutes.HOME: (ctx) => ItemsOverviewScreen(),
           AppRoutes.ITEM_DETAIL: (ctx) => ItemDetailScreen(),
+          AppRoutes.ITEMS: (ctx) => ItemsScreen(),
         }
 
         ,
