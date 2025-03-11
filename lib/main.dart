@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tax_keeper/providers/items_provider.dart';
 import 'package:tax_keeper/screens/item_detail_screen.dart';
+import 'package:tax_keeper/screens/item_form_screen.dart';
 import 'package:tax_keeper/screens/items_overview_screen.dart';
 import 'package:tax_keeper/screens/items_screen.dart';
 import 'package:tax_keeper/utils/app_routes.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.HOME: (ctx) => ItemsOverviewScreen(),
           AppRoutes.ITEM_DETAIL: (ctx) => ItemDetailScreen(),
           AppRoutes.ITEMS: (ctx) => ItemsScreen(),
+          AppRoutes.ITEM_FORM: (ctx) => ItemFormScreen(),
         }
 
         ,

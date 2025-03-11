@@ -4,6 +4,7 @@ import 'package:tax_keeper/components/app_drawer.dart';
 import 'package:tax_keeper/components/item_screen_component.dart';
 import 'package:tax_keeper/models/item.dart';
 import 'package:tax_keeper/providers/items_provider.dart';
+import 'package:tax_keeper/utils/app_routes.dart';
 
 class ItemsScreen extends StatelessWidget {
   const ItemsScreen({super.key});
@@ -15,7 +16,14 @@ class ItemsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Gerenciar Itens'),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.add))],
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(AppRoutes.ITEM_FORM);
+            },
+            icon: Icon(Icons.add),
+          ),
+        ],
       ),
       drawer: AppDrawer(),
       body: Padding(
