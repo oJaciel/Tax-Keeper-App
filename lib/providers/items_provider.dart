@@ -2,17 +2,51 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:tax_keeper/data/dummy_data.dart';
 import 'package:tax_keeper/models/item.dart';
 import 'package:http/http.dart' as http;
 import 'package:tax_keeper/utils/constants.dart';
 
 class ItemsProvider with ChangeNotifier {
-  List<Item> _items = dummyItems;
+  List<Item> _items = [];
 
   List<Item> get items {
     return [..._items];
   }
+
+  Future<void> loadProducts() async {
+  _items.clear();
+  final response = await http.get(
+    Uri.parse('${Constants.ITEM_BASE_URL}.json'),
+  );
+
+  if (response.body == 'null' || response.body.isEmpty) return;
+
+  Map<String, dynamic> data = jsonDecode(response.body);
+  
+  data.forEach((itemId, itemData) {
+    _items.add(
+      Item(
+        id: itemId,
+        name: itemData['name'] ?? '',
+        ncm: itemData['ncm'] ?? '',
+        imageUrl: itemData['imageUrl'] ?? '',
+        codigoBarras: itemData['codigoBarras'] ?? '',
+        cest: itemData['cest'] ?? '',
+        cstIcms: itemData['cstIcms'] ?? '',
+        aliquotaIcms: (itemData['aliquotaIcms'] as num?)?.toDouble() ?? 0.0,
+        cstIpi: itemData['cstIpi'] ?? '',
+        aliquotaIpi: (itemData['aliquotaIpi'] as num?)?.toDouble() ?? 0.0,
+        cstPis: itemData['cstPis'] ?? '',
+        aliquotaPis: (itemData['aliquotaPis'] as num?)?.toDouble() ?? 0.0,
+        cstCofins: itemData['cstCofins'] ?? '',
+        aliquotaCofins: (itemData['aliquotaCofins'] as num?)?.toDouble() ?? 0.0,
+      ),
+    );
+  });
+
+  notifyListeners();
+}
+
 
   Future<void> saveItem(Map<String, Object> data) {
     bool hasId = data['id'] != null;

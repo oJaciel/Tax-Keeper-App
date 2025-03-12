@@ -24,10 +24,9 @@ class ItemGridComponent extends StatelessWidget {
               Object exception,
               StackTrace? stackTrace,
             ) {
-              return Image.network(
-                'https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-picture-coming-creative-vector-png-image_40968940.jpg',
+              return Image.network(item.imageUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => Icon(Icons.image_not_supported, size: 100, color: Colors.grey),
+                errorBuilder: (context, error, stackTrace) => Container(color: Colors.black26, child: Icon(Icons.image_not_supported, size: 100, color: Colors.grey)),
               );
             },
           ),
