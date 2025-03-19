@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tax_keeper/models/item.dart';
+import 'package:tax_keeper/providers/items_provider.dart';
 
 class ItemScreenComponent extends StatelessWidget {
   final Item item;
@@ -17,7 +19,9 @@ class ItemScreenComponent extends StatelessWidget {
           children: [
             IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<ItemsProvider>(context, listen: false).removeItem(item);
+              },
               icon: Icon(
                 Icons.delete,
                 color: Theme.of(context).colorScheme.error,
