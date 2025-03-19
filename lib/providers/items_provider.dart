@@ -49,6 +49,8 @@ class ItemsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  //Método pra criar item a partir das informações do formulário
+  //Dispara o método de salvar ou editar no banco de dados
   Future<void> saveItem(Map<String, Object> data) {
     bool hasId = data['id'] != null;
 
@@ -69,7 +71,11 @@ class ItemsProvider with ChangeNotifier {
       aliquotaCofins: data['aliquotaCofins'] as double,
     );
 
-    return addItem(item);
+    if (hasId == true) {
+      return updateItem(item);
+    } else {
+      return addItem(item);
+    }
   }
 
   //Método para salvar item no banco de dados e localmente
@@ -115,6 +121,34 @@ class ItemsProvider with ChangeNotifier {
     );
 
     notifyListeners();
+  }
+
+  //Método para atualizar item (editar) no banco de dados
+  Future<void> updateItem(Item item) async {
+    int index = _items.indexWhere((i) => i.id == item.id);
+
+    if (index >= 0) {
+      await http.patch(
+        Uri.parse('${Constants.ITEM_BASE_URL}/${item.id}.json'),
+        body: jsonEncode({
+          "name": item.name,
+          "ncm": item.ncm,
+          "imageUrl": item.imageUrl,
+          "codigoBarras": item.codigoBarras,
+          "cest": item.cest,
+          "cstIcms": item.cstIcms,
+          "aliquotaIcms": item.aliquotaIcms,
+          "cstIpi": item.cstIpi,
+          "aliquotaIpi": item.aliquotaIpi,
+          "cstPis": item.cstPis,
+          "aliquotaPis": item.aliquotaPis,
+          "cstCofins": item.cstCofins,
+          "aliquotaCofins": item.aliquotaCofins,
+        }),
+      );
+      _items[index] = item;
+      notifyListeners();
+    }
   }
 
   //Método para remover item do banco de dados

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tax_keeper/models/item.dart';
 import 'package:tax_keeper/providers/items_provider.dart';
 
 class ItemFormScreen extends StatefulWidget {
@@ -45,6 +46,35 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (_formData.isEmpty) {
+      final argument = ModalRoute.of(context)?.settings.arguments;
+
+      if (argument != null) {
+        final item = argument as Item;
+        _formData['id'] = item.id;
+        _formData['name'] = item.name;
+        _formData['ncm'] = item.ncm;
+        _formData['codigoBarras'] = item.codigoBarras!;
+        _formData['cest'] = item.cest!;
+        _formData['cstIcms'] = item.cstIcms!;
+        _formData['aliquotaIcms'] = item.aliquotaIcms!;
+        _formData['cstIpi'] = item.cstIpi!;
+        _formData['aliquotaIpi'] = item.aliquotaIpi!;
+        _formData['cstPis'] = item.cstPis!;
+        _formData['aliquotaPis'] = item.aliquotaPis!;
+        _formData['cstCofins'] = item.cstCofins!;
+        _formData['aliquotaCofins'] = item.aliquotaCofins!;
+        _formData['imageUrl'] = item.imageUrl;
+      }
+
+      if (argument != null && argument is Map<String, dynamic>) {}
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -59,6 +89,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
             children: [
               // Campo de Nome
               TextFormField(
+                initialValue: _formData['name']?.toString(),
                 decoration: InputDecoration(labelText: 'Nome'),
                 textInputAction: TextInputAction.next,
                 onSaved: (name) => _formData['name'] = name ?? 'N/A',
@@ -66,6 +97,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
 
               // Campo de NCM
               TextFormField(
+                initialValue: _formData['ncm']?.toString(),
                 decoration: InputDecoration(labelText: 'NCM'),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.numberWithOptions(),
@@ -74,6 +106,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
 
               // Campo de Código de Barras
               TextFormField(
+                initialValue: _formData['codigoBarras']?.toString(),
                 decoration: InputDecoration(labelText: 'Código de Barras'),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
@@ -84,6 +117,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
 
               // Campo de CEST
               TextFormField(
+                initialValue: _formData['cest']?.toString(),
                 decoration: InputDecoration(labelText: 'CEST'),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
@@ -95,6 +129,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      initialValue: _formData['cstIcms']?.toString(),
                       decoration: InputDecoration(labelText: 'CST ICMS'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
@@ -105,6 +140,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                   SizedBox(width: 10),
                   Expanded(
                     child: TextFormField(
+                      initialValue: _formData['aliquotaIcms']?.toString(),
                       decoration: InputDecoration(labelText: 'Alíquota ICMS'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.numberWithOptions(
@@ -124,6 +160,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      initialValue: _formData['cstIpi']?.toString(),
                       decoration: InputDecoration(labelText: 'CST IPI'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
@@ -134,6 +171,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                   SizedBox(width: 10),
                   Expanded(
                     child: TextFormField(
+                      initialValue: _formData['aliquotaIpi']?.toString(),
                       decoration: InputDecoration(labelText: 'Alíquota IPI'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.numberWithOptions(
@@ -153,6 +191,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      initialValue: _formData['cstPis']?.toString(),
                       decoration: InputDecoration(labelText: 'CST PIS'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
@@ -163,6 +202,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                   SizedBox(width: 10),
                   Expanded(
                     child: TextFormField(
+                      initialValue: _formData['aliquotaPis']?.toString(),
                       decoration: InputDecoration(labelText: 'Alíquota PIS'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.numberWithOptions(
@@ -182,6 +222,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      initialValue: _formData['cstCofins']?.toString(),
                       decoration: InputDecoration(labelText: 'CST COFINS'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
@@ -193,6 +234,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                   SizedBox(width: 10),
                   Expanded(
                     child: TextFormField(
+                      initialValue: _formData['aliquotaCofins']?.toString(),
                       decoration: InputDecoration(labelText: 'Alíquota COFINS'),
                       textInputAction: TextInputAction.done,
                       keyboardType: TextInputType.numberWithOptions(
@@ -209,6 +251,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
 
               // Campo de URL da imagem
               TextFormField(
+                initialValue: _formData['imageUrl']?.toString(),
                 decoration: InputDecoration(labelText: 'URL da Imagem'),
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.url,
