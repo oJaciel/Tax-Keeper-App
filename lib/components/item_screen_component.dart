@@ -20,16 +20,45 @@ class ItemScreenComponent extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(AppRoutes.ITEM_FORM, arguments: item);
+                Navigator.of(
+                  context,
+                ).pushNamed(AppRoutes.ITEM_FORM, arguments: item);
               },
               icon: Icon(Icons.edit),
             ),
             IconButton(
               onPressed: () {
-                Provider.of<ItemsProvider>(
-                  context,
-                  listen: false,
-                ).removeItem(item);
+                showDialog(
+                  context: context,
+                  builder:
+                      (ctx) => AlertDialog(
+                        title: Text('Exclusão de Item'),
+                        content: Text('Deseja remover o item?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(ctx).pop(false);
+                            },
+                            child: Text('Não'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Provider.of<ItemsProvider>(
+                                context,
+                                listen: false,
+                              ).removeItem(item);
+                              Navigator.of(ctx).pop(true);
+                            },
+                            child: Text(
+                              'Sim',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                );
               },
               icon: Icon(
                 Icons.delete,
