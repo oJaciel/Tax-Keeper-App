@@ -87,6 +87,12 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
           key: _formKey,
           child: ListView(
             children: [
+              Text(
+                'Geral',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+
               // Campo de Nome
               TextFormField(
                 initialValue: _formData['name']?.toString(),
@@ -113,6 +119,23 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                 onSaved:
                     (codigoBarras) =>
                         _formData['codigoBarras'] = codigoBarras ?? 'N/A',
+              ),
+
+              // Campo de URL da imagem
+              TextFormField(
+                initialValue: _formData['imageUrl']?.toString(),
+                decoration: InputDecoration(labelText: 'URL da Imagem'),
+                textInputAction: TextInputAction.done,
+                keyboardType: TextInputType.url,
+                onSaved:
+                    (imageUrl) => _formData['imageUrl'] = imageUrl ?? 'N/A',
+              ),
+
+              SizedBox(height: 10),
+              Text(
+                'Fiscal',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
               ),
 
               // Campo de CEST
@@ -247,16 +270,6 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                     ),
                   ),
                 ],
-              ),
-
-              // Campo de URL da imagem
-              TextFormField(
-                initialValue: _formData['imageUrl']?.toString(),
-                decoration: InputDecoration(labelText: 'URL da Imagem'),
-                textInputAction: TextInputAction.done,
-                keyboardType: TextInputType.url,
-                onSaved:
-                    (imageUrl) => _formData['imageUrl'] = imageUrl ?? 'N/A',
               ),
             ],
           ),
