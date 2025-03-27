@@ -26,6 +26,14 @@ class AppDrawer extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed(AppRoutes.ITEMS);
             },
           ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.format_list_numbered),
+            title: Text('Consultar CST'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(AppRoutes.CST);
+            },
+          ),
         ],
       ),
     );
