@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tax_keeper/components/cst_icon_dialog_component.dart';
+import 'package:tax_keeper/data/cst_data.dart';
 import 'package:tax_keeper/models/item.dart';
 import 'package:tax_keeper/providers/items_provider.dart';
 
@@ -160,6 +162,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                           (cstIcms) => _formData['cstIcms'] = cstIcms ?? 'N/A',
                     ),
                   ),
+                  CstIconDialogComponent('ICMS', cstIcmsA+cstIcmsB),
                   SizedBox(width: 10),
                   Expanded(
                     child: TextFormField(
@@ -191,6 +194,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                           (cstIpi) => _formData['cstIpi'] = cstIpi ?? 'N/A',
                     ),
                   ),
+                  CstIconDialogComponent('IPI', cstIpi),
                   SizedBox(width: 10),
                   Expanded(
                     child: TextFormField(
@@ -222,6 +226,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                           (cstPis) => _formData['cstPis'] = cstPis ?? 'N/A',
                     ),
                   ),
+                  CstIconDialogComponent('PIS / COFINS', cstPisCofins),
                   SizedBox(width: 10),
                   Expanded(
                     child: TextFormField(
@@ -254,6 +259,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                               _formData['cstCofins'] = cstCofins ?? 'N/A',
                     ),
                   ),
+                  CstIconDialogComponent('PIS / COFINS', cstPisCofins),
                   SizedBox(width: 10),
                   Expanded(
                     child: TextFormField(

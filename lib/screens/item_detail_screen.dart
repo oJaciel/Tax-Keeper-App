@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tax_keeper/components/cst_icon_dialog_component.dart';
+import 'package:tax_keeper/data/cst_data.dart';
 import 'package:tax_keeper/models/item.dart';
 
 class ItemDetailScreen extends StatelessWidget {
@@ -19,15 +21,24 @@ class ItemDetailScreen extends StatelessWidget {
               width: double.infinity,
               height: 250,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(20),
+                ),
                 boxShadow: [BoxShadow(blurRadius: 5, color: Colors.black26)],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(20),
+                ),
                 child: Image.network(
                   item.imageUrl,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Icon(Icons.image_not_supported, size: 100, color: Colors.grey),
+                  errorBuilder:
+                      (context, error, stackTrace) => Icon(
+                        Icons.image_not_supported,
+                        size: 100,
+                        color: Colors.grey,
+                      ),
                 ),
               ),
             ),
@@ -59,20 +70,79 @@ class ItemDetailScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Card(
                 elevation: 3,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: [
-                      Text('Informações Fiscais', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-                      _buildInfoRow("CST ICMS", item.cstIcms),
-                      _buildInfoRow("Alíquota ICMS", item.aliquotaIcms?.toString(), suffix: "%"),
-                      _buildInfoRow("CST IPI", item.cstIpi),
-                      _buildInfoRow("Alíquota IPI", item.aliquotaIpi?.toString(), suffix: "%"),
-                      _buildInfoRow("CST PIS", item.cstPis),
-                      _buildInfoRow("Alíquota PIS", item.aliquotaPis?.toString(), suffix: "%"),
-                      _buildInfoRow("CST COFINS", item.cstCofins),
-                      _buildInfoRow("Alíquota COFINS", item.aliquotaCofins?.toString(), suffix: "%"),
+                      Text(
+                        'Informações Fiscais',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildInfoRow("CST ICMS", item.cstIcms),
+                          ),
+                          CstIconDialogComponent('ICMS', cstIcmsA + cstIcmsB),
+                        ],
+                      ),
+
+                      _buildInfoRow(
+                        "Alíquota ICMS",
+                        item.aliquotaIcms?.toString(),
+                        suffix: "%",
+                      ),
+
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildInfoRow("CST IPI", item.cstIpi),
+                          ),
+                          CstIconDialogComponent('IPI', cstIpi),
+                        ],
+                      ),
+
+                      _buildInfoRow(
+                        "Alíquota IPI",
+                        item.aliquotaIpi?.toString(),
+                        suffix: "%",
+                      ),
+
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildInfoRow("CST PIS", item.cstPis),
+                          ),
+                          CstIconDialogComponent('PIS / COFINS', cstPisCofins),
+                        ],
+                      ),
+
+                      _buildInfoRow(
+                        "Alíquota PIS",
+                        item.aliquotaPis?.toString(),
+                        suffix: "%",
+                      ),
+
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildInfoRow("CST COFINS", item.cstCofins),
+                          ),
+                          CstIconDialogComponent('PIS / COFINS', cstPisCofins),
+                        ],
+                      ),
+
+                      _buildInfoRow(
+                        "Alíquota COFINS",
+                        item.aliquotaCofins?.toString(),
+                        suffix: "%",
+                      ),
                     ],
                   ),
                 ),
@@ -91,8 +161,16 @@ class ItemDetailScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-          Text('$value $suffix', style: TextStyle(fontSize: 16)), // Exibe string vazia se não houver valor
+          Text(
+            label,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Text('$value $suffix', style: TextStyle(fontSize: 16)),
+            ),
+          ), // Exibe string vazia se não houver valor
         ],
       ),
     );
