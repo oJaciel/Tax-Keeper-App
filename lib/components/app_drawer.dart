@@ -34,6 +34,14 @@ class AppDrawer extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed(AppRoutes.CST);
             },
           ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.calculate),
+            title: Text('Calculadora Fiscal'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(AppRoutes.TAX_CALCULATOR);
+            },
+          ),
         ],
       ),
     );

@@ -6,6 +6,7 @@ import 'package:tax_keeper/screens/item_detail_screen.dart';
 import 'package:tax_keeper/screens/item_form_screen.dart';
 import 'package:tax_keeper/screens/items_overview_screen.dart';
 import 'package:tax_keeper/screens/items_screen.dart';
+import 'package:tax_keeper/screens/tax_calculator_screen.dart';
 import 'package:tax_keeper/utils/app_routes.dart';
 
 void main() {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.ITEMS: (ctx) => ItemsScreen(),
           AppRoutes.ITEM_FORM: (ctx) => ItemFormScreen(),
           AppRoutes.CST: (ctx) => CstScreen(),
+          AppRoutes.TAX_CALCULATOR: (ctx) => TaxCalculatorScreen(),
         }
 
         ,
