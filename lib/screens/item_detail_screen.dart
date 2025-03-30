@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tax_keeper/components/cst_icon_dialog_component.dart';
 import 'package:tax_keeper/data/cst_data.dart';
 import 'package:tax_keeper/models/item.dart';
+import 'package:tax_keeper/utils/app_routes.dart';
 
 class ItemDetailScreen extends StatelessWidget {
   const ItemDetailScreen({super.key});
@@ -11,7 +12,22 @@ class ItemDetailScreen extends StatelessWidget {
     final Item item = ModalRoute.of(context)!.settings.arguments as Item;
 
     return Scaffold(
-      appBar: AppBar(title: Text(item.name)),
+      appBar: AppBar(
+        title: Text(item.name),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ElevatedButton.icon(
+              onPressed:
+                  () => Navigator.of(
+                    context,
+                  ).pushNamed(AppRoutes.TAX_CALCULATOR, arguments: item),
+              label: Text('Calcular Impostos'),
+              icon: Icon(Icons.calculate),
+            ),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
