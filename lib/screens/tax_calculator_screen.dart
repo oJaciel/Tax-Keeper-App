@@ -2,12 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:tax_keeper/components/app_drawer.dart';
 import 'package:tax_keeper/models/item.dart';
 
-class TaxCalculatorScreen extends StatelessWidget {
+class TaxCalculatorScreen extends StatefulWidget {
   const TaxCalculatorScreen({super.key});
+
+  @override
+  State<TaxCalculatorScreen> createState() => _TaxCalculatorScreenState();
+}
+
+class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _valueController = TextEditingController();
+  final _pisController = TextEditingController();
+  final _cofinsController = TextEditingController();
+  final _icmsController = TextEditingController();
+  final _ipiController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final Item? item = ModalRoute.of(context)?.settings.arguments as Item?;
+
+    if (item != null) {
+      _pisController.text = item.aliquotaPis?.toString() ?? '';
+      _cofinsController.text = item.aliquotaCofins?.toString() ?? '';
+      _icmsController.text = item.aliquotaIcms?.toString() ?? '';
+      _ipiController.text = item.aliquotaIpi?.toString() ?? '';
+    }
 
     return Scaffold(
       appBar: AppBar(title: Text('Calculadora Fiscal')),
@@ -79,20 +98,24 @@ class TaxCalculatorScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        controller: _pisController,
                         decoration: InputDecoration(labelText: 'Alíquota PIS'),
                         keyboardType: TextInputType.numberWithOptions(),
                       ),
                     ),
-                    SizedBox(width: 10,),
+                    SizedBox(width: 10),
                     Expanded(
                       child: TextFormField(
-                        decoration: InputDecoration(labelText: 'Alíquota COFINS'),
+                        controller: _cofinsController,
+                        decoration: InputDecoration(
+                          labelText: 'Alíquota COFINS',
+                        ),
                         keyboardType: TextInputType.numberWithOptions(),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 10,),
+                SizedBox(height: 10),
                 Row(
                   children: [
                     Expanded(
@@ -100,19 +123,25 @@ class TaxCalculatorScreen extends StatelessWidget {
                         children: [
                           Text('ICMS', style: TextStyle(fontSize: 14)),
                           TextFormField(
-                            decoration: InputDecoration(labelText: 'Alíquota ICMS'),
+                            controller: _icmsController,
+                            decoration: InputDecoration(
+                              labelText: 'Alíquota ICMS',
+                            ),
                             keyboardType: TextInputType.numberWithOptions(),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(width: 10,),
+                    SizedBox(width: 10),
                     Expanded(
                       child: Column(
                         children: [
                           Text('IPI', style: TextStyle(fontSize: 14)),
                           TextFormField(
-                            decoration: InputDecoration(labelText: 'Alíquota IPI'),
+                            controller: _ipiController,
+                            decoration: InputDecoration(
+                              labelText: 'Alíquota IPI',
+                            ),
                             keyboardType: TextInputType.numberWithOptions(),
                           ),
                         ],
