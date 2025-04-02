@@ -58,11 +58,67 @@ class TaxCalculatorScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 10),
+                Text(
+                  'Valor',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Informe o valor total',
                   ),
                   keyboardType: TextInputType.numberWithOptions(),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  'Alíquotas',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Text('PIS / COFINS', style: TextStyle(fontSize: 14)),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(labelText: 'Alíquota PIS'),
+                        keyboardType: TextInputType.numberWithOptions(),
+                      ),
+                    ),
+                    SizedBox(width: 10,),
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(labelText: 'Alíquota COFINS'),
+                        keyboardType: TextInputType.numberWithOptions(),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10,),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text('ICMS', style: TextStyle(fontSize: 14)),
+                          TextFormField(
+                            decoration: InputDecoration(labelText: 'Alíquota ICMS'),
+                            keyboardType: TextInputType.numberWithOptions(),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 10,),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text('IPI', style: TextStyle(fontSize: 14)),
+                          TextFormField(
+                            decoration: InputDecoration(labelText: 'Alíquota IPI'),
+                            keyboardType: TextInputType.numberWithOptions(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
