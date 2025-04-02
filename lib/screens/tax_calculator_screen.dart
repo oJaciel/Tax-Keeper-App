@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tax_keeper/components/app_drawer.dart';
+import 'package:tax_keeper/components/item_calculator_card_component.dart';
 import 'package:tax_keeper/models/item.dart';
 
 class TaxCalculatorScreen extends StatefulWidget {
@@ -37,46 +38,7 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
           child: Form(
             child: Column(
               children: [
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      title: Text(
-                        item != null
-                            ? 'Calculando Impostos do item'
-                            : 'Sem dados do item, favor informar as alíquotas manualmente',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      subtitle:
-                          item != null
-                              ? Text(
-                                item.name,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                              : null,
-                      leading:
-                          item != null
-                              ? CircleAvatar(
-                                backgroundColor: Colors.black26,
-                                child: Image.network(
-                                  item.imageUrl,
-                                  errorBuilder:
-                                      (context, error, stackTrace) => Icon(
-                                        Icons.image_not_supported,
-                                        size: 20,
-                                        color: Colors.grey,
-                                      ),
-                                ),
-                              )
-                              : null,
-                    ),
-                  ),
-                ),
+                ItemCalculatorCardComponent(item: item),
                 SizedBox(height: 10),
                 Text(
                   'Valor',
