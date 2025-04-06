@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tax_keeper/components/app_drawer.dart';
 import 'package:tax_keeper/components/item_calculator_card_component.dart';
 import 'package:tax_keeper/models/item.dart';
+import 'package:tax_keeper/providers/tax_calculator_provider.dart';
 
 class TaxCalculatorScreen extends StatefulWidget {
   const TaxCalculatorScreen({super.key});
@@ -17,6 +18,11 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
   final _cofinsController = TextEditingController();
   final _icmsController = TextEditingController();
   final _ipiController = TextEditingController();
+
+  //Lista para armazenar resultado da função de cálculo
+  List<Map<String, double>> resultList = [];
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +42,7 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Form(
+            key: _formKey,
             child: Column(
               children: [
                 ItemCalculatorCardComponent(item: item),
@@ -45,6 +52,7 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
+                  controller: _valueController,
                   decoration: InputDecoration(
                     labelText: 'Informe o valor total',
                   ),
@@ -110,6 +118,35 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
                       ),
                     ),
                   ],
+                ),
+                SizedBox(height: 20),
+                TextButton.icon(
+                  onPressed: () {
+                    double total =
+                        double.tryParse(_valueController.text) ?? 0.0;
+                    double pis = double.tryParse(_pisController.text) ?? 0.0;
+                    double cofins =
+                        double.tryParse(_cofinsController.text) ?? 0.0;
+                    double icms = double.tryParse(_icmsController.text) ?? 0.0;
+                    double ipi = double.tryParse(_ipiController.text) ?? 0.0;
+
+                    final result = TaxCalculatorProvider.calculateTax(
+                      total,
+                      pis,
+                      cofins,
+                      icms,
+                      ipi,
+                    );
+
+                    setState(() {
+                      resultList.add(result);
+                    });
+                  },
+                  label: Text(
+                    'Calcular Impostos',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  icon: Icon(Icons.calculate),
                 ),
               ],
             ),
