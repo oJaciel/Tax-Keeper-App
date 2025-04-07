@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tax_keeper/components/app_drawer.dart';
+import 'package:tax_keeper/components/calculator_result_component.dart';
 import 'package:tax_keeper/components/item_calculator_card_component.dart';
 import 'package:tax_keeper/models/item.dart';
 import 'package:tax_keeper/providers/tax_calculator_provider.dart';
@@ -22,7 +23,8 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
   //Lista para armazenar resultado da função de cálculo
   List<Map<String, double>> resultList = [];
 
-  
+  //Variável para mostrar widget de resultado ao disparar função
+  bool showResultComponent = false;
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +141,10 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
                     );
 
                     setState(() {
+                      resultList.clear();
                       resultList.add(result);
+
+                      showResultComponent = true;
                     });
                   },
                   label: Text(
@@ -148,6 +153,10 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
                   ),
                   icon: Icon(Icons.calculate),
                 ),
+
+                showResultComponent == true
+                    ? CalculatorResultComponent(resultList,)
+                    : Text(''),
               ],
             ),
           ),
