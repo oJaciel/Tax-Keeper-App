@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tax_keeper/components/calculator_result_icon_dialog_component.dart';
 
 class CalculatorResultComponent extends StatelessWidget {
   const CalculatorResultComponent(this.resultList, {super.key});
@@ -29,12 +30,7 @@ class CalculatorResultComponent extends StatelessWidget {
                       color: Colors.blueGrey.shade800,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      //TO DO
-                    },
-                    icon: Icon(Icons.help),
-                  ),
+                  CalculatorResultIconDialogComponent(),
                 ],
               ),
               const SizedBox(height: 12),
