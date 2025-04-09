@@ -30,7 +30,7 @@ class CalculatorResultComponent extends StatelessWidget {
                       color: Colors.blueGrey.shade800,
                     ),
                   ),
-                  CalculatorResultIconDialogComponent(),
+                  CalculatorResultIconDialogComponent(resultList: resultList,),
                 ],
               ),
               const SizedBox(height: 12),

@@ -140,6 +140,13 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
                       ipi,
                     );
 
+                    //Dados usados no botão help do resultado
+                    result['valorTotal'] = total;
+                    result['aliquotaPis'] = pis;
+                    result['aliquotaCofins'] = cofins;
+                    result['aliquotaIcms'] = icms;
+                    result['aliquotaIpi'] = ipi;
+
                     setState(() {
                       resultList.clear();
                       resultList.add(result);
@@ -155,7 +162,7 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
                 ),
 
                 showResultComponent == true
-                    ? CalculatorResultComponent(resultList,)
+                    ? CalculatorResultComponent(resultList)
                     : Text(''),
               ],
             ),
