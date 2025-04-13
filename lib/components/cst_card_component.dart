@@ -5,7 +5,6 @@ class CstCardComponent extends StatelessWidget {
 
   final String title;
   final List<Map<String, String>> data;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +53,7 @@ class CstCardComponent extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Divider(),
+                        data.length != 1 ? Divider() : SizedBox(),
                       ],
                     ),
                   )

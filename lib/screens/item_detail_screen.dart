@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tax_keeper/components/cst_icon_dialog_component.dart';
 import 'package:tax_keeper/data/cst_data.dart';
 import 'package:tax_keeper/models/item.dart';
+import 'package:tax_keeper/providers/cst_filter_provider.dart';
 import 'package:tax_keeper/utils/app_routes.dart';
 
 class ItemDetailScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class ItemDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Item item = ModalRoute.of(context)!.settings.arguments as Item;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -105,7 +107,10 @@ class ItemDetailScreen extends StatelessWidget {
                           Expanded(
                             child: _buildInfoRow("CST ICMS", item.cstIcms),
                           ),
-                          CstIconDialogComponent('ICMS', cstIcmsA + cstIcmsB),
+                          CstIconDialogComponent(
+                            'ICMS',
+                            CstFilterProvider.filterCstIcms(cstIcmsA, cstIcmsB, item.cstIcms),
+                          ),
                         ],
                       ),
 
@@ -120,7 +125,10 @@ class ItemDetailScreen extends StatelessWidget {
                           Expanded(
                             child: _buildInfoRow("CST IPI", item.cstIpi),
                           ),
-                          CstIconDialogComponent('IPI', cstIpi),
+                          CstIconDialogComponent(
+                            'IPI',
+                            CstFilterProvider.filterCst(cstIpi, item.cstIpi),
+                          ),
                         ],
                       ),
 
@@ -135,7 +143,10 @@ class ItemDetailScreen extends StatelessWidget {
                           Expanded(
                             child: _buildInfoRow("CST PIS", item.cstPis),
                           ),
-                          CstIconDialogComponent('PIS / COFINS', cstPisCofins),
+                          CstIconDialogComponent(
+                            'PIS / COFINS',
+                            CstFilterProvider.filterCst(cstPisCofins, item.cstPis),
+                          ),
                         ],
                       ),
 
@@ -150,7 +161,10 @@ class ItemDetailScreen extends StatelessWidget {
                           Expanded(
                             child: _buildInfoRow("CST COFINS", item.cstCofins),
                           ),
-                          CstIconDialogComponent('PIS / COFINS', cstPisCofins),
+                          CstIconDialogComponent(
+                            'PIS / COFINS',
+                            CstFilterProvider.filterCst(cstPisCofins, item.cstCofins),
+                          ),
                         ],
                       ),
 
