@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:tax_keeper/components/cst_icon_dialog_component.dart';
 import 'package:tax_keeper/data/cst_data.dart';
@@ -101,6 +102,16 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                 decoration: InputDecoration(labelText: 'Nome'),
                 textInputAction: TextInputAction.next,
                 onSaved: (name) => _formData['name'] = name ?? 'N/A',
+                maxLength: 40,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'O nome é obrigatório.';
+                  }
+                  if (value.trim().length < 3) {
+                    return 'O nome deve ter pelo menos 3 letras.';
+                  }
+                  return null;
+                },
               ),
 
               // Campo de NCM
@@ -110,6 +121,21 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.numberWithOptions(),
                 onSaved: (ncm) => _formData['ncm'] = ncm ?? 'N/A',
+                inputFormatters: [
+                  MaskTextInputFormatter(
+                    mask: '####.##.##',
+                    filter: {"#": RegExp(r'[0-9]')},
+                  ),
+                ],
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'NCM é obrigatório.';
+                  }
+                  if (value.trim().length < 10) {
+                    return 'NCM deve ter 8 dígitos';
+                  }
+                  return null;
+                },
               ),
 
               // Campo de Código de Barras
@@ -118,9 +144,19 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                 decoration: InputDecoration(labelText: 'Código de Barras'),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
+                maxLength: 14,
                 onSaved:
                     (codigoBarras) =>
                         _formData['codigoBarras'] = codigoBarras ?? 'N/A',
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Código de barras é obrigatório.';
+                  }
+                  if (value.trim().length < 13) {
+                    return 'Código de barras deve ter 13/14 dígitos';
+                  }
+                  return null;
+                },
               ),
 
               // Campo de URL da imagem
@@ -146,6 +182,12 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                 decoration: InputDecoration(labelText: 'CEST'),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
+                inputFormatters: [
+                  MaskTextInputFormatter(
+                    mask: '##.###.##',
+                    filter: {"#": RegExp(r'[0-9]')},
+                  ),
+                ],
                 onSaved: (cest) => _formData['cest'] = cest ?? 'N/A',
               ),
 
@@ -158,11 +200,21 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                       decoration: InputDecoration(labelText: 'CST ICMS'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      maxLength: 3,
                       onSaved:
                           (cstIcms) => _formData['cstIcms'] = cstIcms ?? 'N/A',
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'CST ICMS é obrigatória.';
+                        }
+                        if (value.trim().length < 3) {
+                          return 'CST ICMS deve ter 3 dígitos';
+                        }
+                        return null;
+                      },
                     ),
                   ),
-                  CstIconDialogComponent('ICMS', cstIcmsA+cstIcmsB),
+                  CstIconDialogComponent('ICMS', cstIcmsA + cstIcmsB),
                   SizedBox(width: 10),
                   Expanded(
                     child: TextFormField(
@@ -190,8 +242,18 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                       decoration: InputDecoration(labelText: 'CST IPI'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      maxLength: 2,
                       onSaved:
                           (cstIpi) => _formData['cstIpi'] = cstIpi ?? 'N/A',
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'CST IPI é obrigatória.';
+                        }
+                        if (value.trim().length < 2) {
+                          return 'CST IPI deve ter 2 dígitos';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   CstIconDialogComponent('IPI', cstIpi),
@@ -222,8 +284,18 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                       decoration: InputDecoration(labelText: 'CST PIS'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      maxLength: 2,
                       onSaved:
                           (cstPis) => _formData['cstPis'] = cstPis ?? 'N/A',
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'CST PIS é obrigatória.';
+                        }
+                        if (value.trim().length < 2) {
+                          return 'CST PIS deve ter 2 dígitos';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   CstIconDialogComponent('PIS / COFINS', cstPisCofins),
@@ -254,9 +326,19 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                       decoration: InputDecoration(labelText: 'CST COFINS'),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      maxLength: 2,
                       onSaved:
                           (cstCofins) =>
                               _formData['cstCofins'] = cstCofins ?? 'N/A',
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'CST COFINS é obrigatória.';
+                        }
+                        if (value.trim().length < 2) {
+                          return 'CST COFINS deve ter 2 dígitos';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   CstIconDialogComponent('PIS / COFINS', cstPisCofins),

@@ -8,15 +8,6 @@ class CstFilterProvider {
       return cstTable;
     }
 
-    // Se for código CST de ICMS (3 dígitos)
-    if (itemCst.length == 3) {
-      final filter =
-          cstTable
-              .where((data) => data['cod'] == itemCst.substring(1))
-              .toList();
-      return filter.isEmpty ? cstTable : filter;
-    }
-
     // Para os demais CSTs (2 dígitos)
     final filter =
         cstTable
