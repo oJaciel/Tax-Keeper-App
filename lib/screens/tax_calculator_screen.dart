@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:tax_keeper/components/app_drawer.dart';
 import 'package:tax_keeper/components/calculator_result_component.dart';
 import 'package:tax_keeper/components/item_calculator_card_component.dart';
@@ -59,6 +60,18 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
                     labelText: 'Informe o valor total',
                   ),
                   keyboardType: TextInputType.numberWithOptions(),
+                  inputFormatters: [
+                    CurrencyInputFormatter(
+                      leadingSymbol: 'R\$ ',
+                      thousandSeparator: ThousandSeparator.Period
+                    )
+                  ],
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Valor inválido';
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 15),
                 Text(
@@ -124,6 +137,10 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
                 SizedBox(height: 20),
                 TextButton.icon(
                   onPressed: () {
+                    if (!_formKey.currentState!.validate()) {
+                      return;
+                    }
+
                     double total =
                         double.tryParse(_valueController.text) ?? 0.0;
                     double pis = double.tryParse(_pisController.text) ?? 0.0;
