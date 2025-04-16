@@ -56,15 +56,19 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
                 ),
                 TextFormField(
                   controller: _valueController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Informe o valor total',
                   ),
-                  keyboardType: TextInputType.numberWithOptions(),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
                   inputFormatters: [
                     CurrencyInputFormatter(
-                      leadingSymbol: 'R\$ ',
-                      thousandSeparator: ThousandSeparator.Period
-                    )
+                      leadingSymbol: 'R\$',
+                      useSymbolPadding: true,
+                      thousandSeparator: ThousandSeparator.Period,
+                      mantissaLength: 2,
+                    ),
                   ],
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
@@ -73,6 +77,7 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
                     return null;
                   },
                 ),
+
                 SizedBox(height: 15),
                 Text(
                   'Alíquotas',
@@ -141,8 +146,18 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
                       return;
                     }
 
-                    double total =
-                        double.tryParse(_valueController.text) ?? 0.0;
+                    final total =
+                        double.tryParse(
+                          _valueController.text
+                              .replaceAll('R\$ ', '') // remove o símbolo
+                              .replaceAll('.', '') // remove pontos dos milhares
+                              .replaceAll(
+                                ',',
+                                '.',
+                              ), // transforma vírgula em ponto decimal
+                        ) ??
+                        0.0;
+
                     double pis = double.tryParse(_pisController.text) ?? 0.0;
                     double cofins =
                         double.tryParse(_cofinsController.text) ?? 0.0;
