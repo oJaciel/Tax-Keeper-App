@@ -6,6 +6,7 @@ import 'package:tax_keeper/screens/item_detail_screen.dart';
 import 'package:tax_keeper/screens/item_form_screen.dart';
 import 'package:tax_keeper/screens/items_overview_screen.dart';
 import 'package:tax_keeper/screens/items_screen.dart';
+import 'package:tax_keeper/screens/ncm_screen.dart';
 import 'package:tax_keeper/screens/tax_calculator_screen.dart';
 import 'package:tax_keeper/utils/app_routes.dart';
 
@@ -19,9 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ItemsProvider())
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => ItemsProvider())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Tax Keeper',
@@ -32,9 +31,8 @@ class MyApp extends StatelessWidget {
           AppRoutes.ITEM_FORM: (ctx) => ItemFormScreen(),
           AppRoutes.CST: (ctx) => CstScreen(),
           AppRoutes.TAX_CALCULATOR: (ctx) => TaxCalculatorScreen(),
-        }
-
-        ,
+          AppRoutes.NCM: (ctx) => NcmScreen(),
+        },
       ),
     );
   }

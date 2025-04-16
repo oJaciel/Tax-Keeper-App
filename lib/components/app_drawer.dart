@@ -28,7 +28,17 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.format_list_numbered),
+            leading: Icon(Icons.calculate),
+            title: Text('Calculadora Fiscal'),
+            onTap: () {
+              Navigator.of(
+                context,
+              ).pushReplacementNamed(AppRoutes.TAX_CALCULATOR);
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.pin),
             title: Text('Consultar CST'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(AppRoutes.CST);
@@ -36,10 +46,10 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.calculate),
-            title: Text('Calculadora Fiscal'),
+            leading: Icon(Icons.new_label),
+            title: Text('Consultar NCM'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(AppRoutes.TAX_CALCULATOR);
+              Navigator.of(context).pushReplacementNamed(AppRoutes.NCM);
             },
           ),
         ],
