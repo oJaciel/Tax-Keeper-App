@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tax_keeper/providers/items_provider.dart';
+import 'package:tax_keeper/providers/ncm_provider.dart';
 import 'package:tax_keeper/screens/cst_screen.dart';
 import 'package:tax_keeper/screens/item_detail_screen.dart';
 import 'package:tax_keeper/screens/item_form_screen.dart';
@@ -20,7 +21,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => ItemsProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => ItemsProvider()),
+        ChangeNotifierProvider(create: (_) => NcmProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Tax Keeper',
