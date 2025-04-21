@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:tax_keeper/models/item.dart';
 
 class ImageCircleAvatarComponent extends StatelessWidget {
-  const ImageCircleAvatarComponent({super.key, required this.item});
+  const ImageCircleAvatarComponent({super.key, required this.item, required this.size});
 
   final Item? item;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: 25,
+      radius: size,
       backgroundColor: Colors.black26,
       child: ClipOval(
         child: Image.network(
@@ -19,7 +20,7 @@ class ImageCircleAvatarComponent extends StatelessWidget {
           height: double.infinity,
           errorBuilder:
               (context, error, stackTrace) =>
-                  Icon(Icons.image_not_supported, size: 25, color: Colors.grey),
+                  Icon(Icons.image_not_supported, size: size, color: Colors.grey),
         ),
       ),
     );

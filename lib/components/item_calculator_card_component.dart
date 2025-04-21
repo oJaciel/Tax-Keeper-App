@@ -28,7 +28,7 @@ class ItemCalculatorCardComponent extends StatelessWidget {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   )
                   : null,
-          leading: item != null ? ImageCircleAvatarComponent(item: item) : null,
+          leading: item != null ? ImageCircleAvatarComponent(item: item, size: 25,) : null,
         ),
       ),
     );
