@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tax_keeper/components/image_circle_avatar_component.dart';
 import 'package:tax_keeper/models/item.dart';
 
 class ItemCalculatorCardComponent extends StatelessWidget {
@@ -27,29 +28,7 @@ class ItemCalculatorCardComponent extends StatelessWidget {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   )
                   : null,
-          leading:
-              item != null
-                  ? CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Colors.black26,
-                    child: ClipOval(
-                      child: Image.network(
-                        item!.imageUrl,
-                        fit:
-                            BoxFit
-                                .cover, // Garante que a imagem cubra o círculo
-                        width: double.infinity,
-                        height: double.infinity,
-                        errorBuilder:
-                            (context, error, stackTrace) => Icon(
-                              Icons.image_not_supported,
-                              size: 25,
-                              color: Colors.grey,
-                            ),
-                      ),
-                    ),
-                  )
-                  : null,
+          leading: item != null ? ImageCircleAvatarComponent(item: item) : null,
         ),
       ),
     );
