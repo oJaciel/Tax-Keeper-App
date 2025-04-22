@@ -70,12 +70,14 @@ class _NcmSearchComponentState extends State<NcmSearchComponent> {
               IconButton(
                 onPressed: () async {
                   if (_formKey.currentState?.validate() ?? false) {
-
                     setState(() {
                       submittedForm = true;
+                      result = '';
                     });
-                    
-                    final response = await provider.searchNcm(_ncmController.text);
+
+                    final response = await provider.searchNcm(
+                      _ncmController.text,
+                    );
 
                     setState(() {
                       result = response;
@@ -94,8 +96,8 @@ class _NcmSearchComponentState extends State<NcmSearchComponent> {
             child: Column(
               children: [
                 Center(child: CircularProgressIndicator()),
-                SizedBox(height: 25,),
-                Text('Buscando NCM, aguarde')
+                SizedBox(height: 25),
+                Text('Buscando NCM, aguarde'),
               ],
             ),
           )
