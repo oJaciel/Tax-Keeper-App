@@ -11,8 +11,6 @@ class NcmProvider with ChangeNotifier {
     return [..._ncm_list];
   }
 
-
-
   Future<void> loadItemsNcm(List<Item> items) async {
     _ncm_list.clear();
 
@@ -37,16 +35,28 @@ class NcmProvider with ChangeNotifier {
       _ncm_list.add({
         //Adicionando na lista o item passado, o código NCM e a descrição do NCM
         'item': item,
-        'codigo':
-            ncmData['codigo'] ??
-            'Código não disponível', 
-        'descricao':
-            ncmData['descricao'] ??
-            'Descrição não disponível', 
+        'codigo': ncmData['codigo'] ?? 'Código não disponível',
+        'descricao': ncmData['descricao'] ?? 'Descrição não disponível',
       });
     }
 
     notifyListeners();
+  }
+
+  Future searchNcm(String ncm) async {
+    final formattedNcm = ncm.replaceAll('.', '');
+
+    final response = await http.get(
+      Uri.parse('${Constants.NCM_API_BASE_URL}/$formattedNcm'),
+    );
+
+    final Map<String, dynamic> ncmData = jsonDecode(response.body);
+
+    if (ncmData['descricao'] == null) {
+      return 'NCM inexistente. Verifique os dígitos e tente novamente.';
+    } else {
+      return '${ncmData['codigo']} - ${ncmData['descricao']}';
+    }
   }
 }
 
