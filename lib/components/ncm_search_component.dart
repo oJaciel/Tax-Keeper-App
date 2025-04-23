@@ -102,7 +102,7 @@ class _NcmSearchComponentState extends State<NcmSearchComponent> {
             ),
           )
         else
-          Text(result, style: const TextStyle(fontSize: 16)),
+          Text(result, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold), textAlign: TextAlign.center, ),
       ],
     );
   }

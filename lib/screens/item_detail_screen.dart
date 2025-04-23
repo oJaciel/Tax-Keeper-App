@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tax_keeper/components/cst_icon_dialog_component.dart';
+import 'package:tax_keeper/components/ncm_icon_dialog_component.dart';
 import 'package:tax_keeper/data/cst_data.dart';
 import 'package:tax_keeper/models/item.dart';
 import 'package:tax_keeper/providers/cst_filter_provider.dart';
@@ -11,7 +12,6 @@ class ItemDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Item item = ModalRoute.of(context)!.settings.arguments as Item;
-
 
     return Scaffold(
       appBar: AppBar(
@@ -74,7 +74,12 @@ class ItemDetailScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8),
-                  _buildInfoRow("NCM", item.ncm),
+                  Row(
+                    children: [
+                      Flexible(child: _buildInfoRow("NCM", item.ncm)),
+                      NcmIconDialogComponent(item,),
+                    ],
+                  ),
                   _buildInfoRow("Código de Barras", item.codigoBarras),
                   _buildInfoRow("CEST", item.cest),
                 ],
@@ -109,7 +114,11 @@ class ItemDetailScreen extends StatelessWidget {
                           ),
                           CstIconDialogComponent(
                             'ICMS',
-                            CstFilterProvider.filterCstIcms(cstIcmsA, cstIcmsB, item.cstIcms),
+                            CstFilterProvider.filterCstIcms(
+                              cstIcmsA,
+                              cstIcmsB,
+                              item.cstIcms,
+                            ),
                           ),
                         ],
                       ),
@@ -145,7 +154,10 @@ class ItemDetailScreen extends StatelessWidget {
                           ),
                           CstIconDialogComponent(
                             'PIS / COFINS',
-                            CstFilterProvider.filterCst(cstPisCofins, item.cstPis),
+                            CstFilterProvider.filterCst(
+                              cstPisCofins,
+                              item.cstPis,
+                            ),
                           ),
                         ],
                       ),
@@ -163,7 +175,10 @@ class ItemDetailScreen extends StatelessWidget {
                           ),
                           CstIconDialogComponent(
                             'PIS / COFINS',
-                            CstFilterProvider.filterCst(cstPisCofins, item.cstCofins),
+                            CstFilterProvider.filterCst(
+                              cstPisCofins,
+                              item.cstCofins,
+                            ),
                           ),
                         ],
                       ),
