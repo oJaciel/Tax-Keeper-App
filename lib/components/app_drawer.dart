@@ -15,7 +15,8 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.home),
             title: Text('Início'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(AppRoutes.HOME);
+              Navigator.pop(context); //Fecha o Drawer
+              Navigator.of(context).pushNamed(AppRoutes.HOME);
             },
           ),
           Divider(),
@@ -23,7 +24,8 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.edit),
             title: Text('Gerenciar Itens'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(AppRoutes.ITEMS);
+              Navigator.pop(context); //Fecha o Drawer
+              Navigator.of(context).pushNamed(AppRoutes.ITEMS);
             },
           ),
           Divider(),
@@ -31,9 +33,8 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.calculate),
             title: Text('Calculadora Fiscal'),
             onTap: () {
-              Navigator.of(
-                context,
-              ).pushReplacementNamed(AppRoutes.TAX_CALCULATOR);
+              Navigator.pop(context); //Fecha o Drawer
+              Navigator.of(context).pushNamed(AppRoutes.TAX_CALCULATOR);
             },
           ),
           Divider(),
@@ -41,7 +42,8 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.pin),
             title: Text('Consultar CST'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(AppRoutes.CST);
+              Navigator.pop(context); //Fecha o Drawer
+              Navigator.of(context).pushNamed(AppRoutes.CST);
             },
           ),
           Divider(),
@@ -49,7 +51,8 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.new_label),
             title: Text('Consultar NCM'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(AppRoutes.NCM);
+              Navigator.pop(context); //Fecha o Drawer
+              Navigator.of(context).pushNamed(AppRoutes.NCM);
             },
           ),
         ],

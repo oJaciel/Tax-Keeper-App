@@ -16,16 +16,18 @@ class _NcmScreenState extends State<NcmScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Consulta de NCM')),
       drawer: AppDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            NcmItemCardComponent(),
-            SizedBox(height: 10,),
-            Divider(),
-            SizedBox(height: 10,),
-            NcmSearchComponent(),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              NcmItemCardComponent(),
+              SizedBox(height: 10,),
+              Divider(),
+              SizedBox(height: 10,),
+              NcmSearchComponent(),
+            ],
+          ),
         ),
       ),
     );

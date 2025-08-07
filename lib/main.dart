@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tax_keeper/providers/items_provider.dart';
 import 'package:tax_keeper/providers/ncm_provider.dart';
@@ -11,7 +12,14 @@ import 'package:tax_keeper/screens/ncm_screen.dart';
 import 'package:tax_keeper/screens/tax_calculator_screen.dart';
 import 'package:tax_keeper/utils/app_routes.dart';
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
   runApp(const MyApp());
 }
 
